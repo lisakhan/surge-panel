@@ -51,12 +51,9 @@ function getResetDaysLeft(reset) {
 
   let now = new Date().getTime();
   let resetTime;
-
-  // 检查是否为时间戳
   if (/^[\d.]+$/.test(reset)) {
     resetTime = parseInt(reset) * 1000;
   } else {
-    // 尝试解析YYYY-MM-DD格式的日期
     resetTime = new Date(reset).getTime();
   }
 
