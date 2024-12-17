@@ -5,9 +5,12 @@ $httpClient.get(url, function(error, response, data) {
   let used = jsonData.data_counter;
   let total = jsonData.plan_monthly_data;
   let resetday = jsonData.data_next_reset;
+  let useddisk = jsonData.plan_disk;
+  let totaldisk = jsonData.ve_used_disk_space_b;
   let usedram = jsonData.plan_ram - jsonData.mem_available_kb * 1024
   let totalram = jsonData.plan_ram
   let content = [`Traffic Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`];
+  content.push(`Disk Usage: ${bytesToSize(useddisk)} / ${bytesToSize(totaldisk)}`);
   content.push(`Ram Usage: ${bytesToSize(usedram)} / ${bytesToSize(totalram)}`);
   content.push(`Reset in ${formatTime(resetday)}, ${getResetDaysLeft(resetday)} days left.`);
 
