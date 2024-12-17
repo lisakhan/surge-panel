@@ -8,7 +8,6 @@
   let resetDayLeft = getRemainingDays(parseInt(args["reset_day"]));
   let planDate = getPlanDate(parseInt(args["reset_day"]));
   let expireDaysLeft = getExpireDaysLeft(info.expire);
-
   let used = info.download + info.upload;
   let total = info.total;
   let content = [`Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`];
@@ -33,6 +32,7 @@
   });
 })();
 
+
 function getArgs() {
   return Object.fromEntries(
     $argument
@@ -41,6 +41,7 @@ function getArgs() {
       .map(([k, v]) => [k, decodeURIComponent(v)])
   );
 }
+
 
 function getUserInfo(url) {
   let request = { headers: { "User-Agent": "Surge" }, url };
@@ -64,6 +65,7 @@ function getUserInfo(url) {
   );
 }
 
+
 async function getDataInfo(url) {
   const [err, data] = await getUserInfo(url)
     .then((data) => [null, data])
@@ -81,6 +83,7 @@ async function getDataInfo(url) {
   );
 }
 
+
 function getRemainingDays(resetDay) {
   if (!resetDay || resetDay < 1 || resetDay > 31) return;
 
@@ -88,12 +91,9 @@ function getRemainingDays(resetDay) {
   let today = now.getDate();
   let month = now.getMonth();
   let year = now.getFullYear();
-
   let daysInThisMonth = new Date(year, month + 1, 0).getDate();
   let daysInNextMonth = new Date(year, month + 2, 0).getDate();
-
   resetDay = Math.min(resetDay, daysInThisMonth);
-
   if (resetDay > today) {
     return resetDay - today;
   } else {
@@ -101,6 +101,7 @@ function getRemainingDays(resetDay) {
     return daysInThisMonth - today + resetDay;
   }
 }
+
 
 function getPlanDate(resetDay) {
   if (!resetDay || resetDay < 1 || resetDay > 31) return;
@@ -126,7 +127,6 @@ function getPlanDate(resetDay) {
 
 function getExpireDaysLeft(expire) {
   if (!expire) return;
-
   let now = new Date().getTime();
   let expireTime;
   if (/^[\d.]+$/.test(expire)) {
@@ -139,6 +139,7 @@ function getExpireDaysLeft(expire) {
   return daysLeft > 0 ? daysLeft : null;
 }
 
+
 function bytesToSize(bytes) {
   if (bytes === 0) return "0B";
   let k = 1024;
@@ -146,6 +147,7 @@ function bytesToSize(bytes) {
   let i = Math.floor(Math.log(bytes) / Math.log(k));
   return (bytes / Math.pow(k, i)).toFixed(2) + " " + sizes[i];
 }
+
 
 function formatTime(time) {
   if (time < 1000000000000) time *= 1000;
