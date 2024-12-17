@@ -17,8 +17,8 @@ VPS-info = script-name=VPS,update-interval=7200
    
    ```
 [Script]
-SUB = type=generic,timeout=5,script-path=SUB-info.js,script-update-interval=86400,argument=url=xxxx&title=Sub&reset_day=xxxx&icon=network.badge.shield.half.filled&color=#ebc142
-VPS = type=generic,timeout=5,script-path=VPS-info.js,script-update-interval=86400,argument=veid=xxxx&apikey=private_xxxxx&title=Bandwagon&icon=network.badge.shield.half.filled&color=#ebc142
+SUB = type=generic,timeout=5,script-path=https://raw.githubusercontent.com/412999826/surge-panel/refs/heads/main/SUB-info.js,script-update-interval=86400,argument=url=xxxx&title=Sub&reset_day=xxxx&icon=network.badge.shield.half.filled&color=#ebc142
+VPS = type=generic,timeout=5,script-path=https://raw.githubusercontent.com/412999826/surge-panel/refs/heads/main/VPS-info.js,script-update-interval=86400,argument=veid=xxxx&apikey=private_xxxxx&title=Bandwagon&icon=network.badge.shield.half.filled&color=#ebc142
    ```
    - `SUB` `Bandwagon`为要添加的脚本名称，必须与上面要运行的脚本名称必须保持一致
    - `script-path` 和 `type` 的值不建议修改，除非你知道你在做什么
