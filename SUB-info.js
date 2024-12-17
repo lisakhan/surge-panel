@@ -3,7 +3,6 @@
   let args = getArgs();
   let info = await getDataInfo(args.url);
   
-  // 如果没有信息，则直接结束
   if (!info) return $done();
 
   let resetDayLeft = getRemainingDays(parseInt(args["reset_day"]));
@@ -14,7 +13,6 @@
   let total = info.total;
   let content = [`Usage: ${bytesToSize(used)} / ${bytesToSize(total)}`];
 
-  // 判断是否为不限时套餐
   if (!resetDayLeft && !expireDaysLeft) {
     let percentage = ((used / total) * 100).toFixed(1);
     content.push(`${percentage}% of the traffice has been used.`);
@@ -22,7 +20,6 @@
       content.push(`Reset in ${planDate}, ${resetDayLeft} days left.`);
     } 
     
-    // 到期时间（日期）显示
     if (expireDaysLeft) {
       content.push(`Expire in ${formatTime(info.expire)}, ${expireDaysLeft} days left.`);
     }
@@ -92,18 +89,14 @@ function getRemainingDays(resetDay) {
   let month = now.getMonth();
   let year = now.getFullYear();
 
-  // 计算当前月份和下个月份的天数
   let daysInThisMonth = new Date(year, month + 1, 0).getDate();
   let daysInNextMonth = new Date(year, month + 2, 0).getDate();
 
-  // 如果重置日大于当前月份的天数，则在当月的最后一天重置
   resetDay = Math.min(resetDay, daysInThisMonth);
 
   if (resetDay > today) {
-    // 如果重置日在本月内
     return resetDay - today;
   } else {
-    // 如果重置日在下个月，确保不超过下个月的天数
     resetDay = Math.min(resetDay, daysInNextMonth);
     return daysInThisMonth - today + resetDay;
   }
@@ -117,16 +110,11 @@ function getPlanDate(resetDay) {
   let month = now.getMonth()+1;
   let year = now.getFullYear();
   let nextmonth = now.getMonth()+2;
-
-  // 计算当前月份的天数
   let daysInThisMonth = new Date(year, month, 0).getDate();
   let daysInNextMonth = new Date(year, nextmonth, 0).getDate();
-
-  // 如果重置日大于今天，返回本月的重置日期
   if (Math.min(resetDay, daysInThisMonth) > today) {
     return `${year}/${String(month).padStart(2, '0')}/${String(Math.min(resetDay, daysInThisMonth)).padStart(2, '0')}`;
   } else {
-  // 如果重置日在下个月，确保不超过下个月的天数
     if (nextmonth > 12) {
       year += 1; 
       nextmonth = 1;
@@ -141,12 +129,9 @@ function getExpireDaysLeft(expire) {
 
   let now = new Date().getTime();
   let expireTime;
-
-  // 检查是否为时间戳
   if (/^[\d.]+$/.test(expire)) {
     expireTime = parseInt(expire) * 1000;
   } else {
-    // 尝试解析YYYY-MM-DD格式的日期
     expireTime = new Date(expire).getTime();
   }
 
@@ -163,7 +148,6 @@ function bytesToSize(bytes) {
 }
 
 function formatTime(time) {
-  // 检查时间戳是否为秒单位，如果是，则转换为毫秒
   if (time < 1000000000000) time *= 1000;
 
   let dateObj = new Date(time);
