@@ -9,10 +9,13 @@ $httpClient.get(url, function(error, response, data) {
   let totaldisk = jsonData.plan_disk;
   let usedram = jsonData.plan_ram - jsonData.mem_available_kb * 1024
   let totalram = jsonData.plan_ram
+  let location = jsonData.node_location_id
+  let location_ip = jsonData.ip_addresses[0]
   let content = [`Traffic: ${bytesToSize(used)} / ${bytesToSize(total)}`];
   content.push(`Disk: ${bytesToSize(useddisk)} / ${bytesToSize(totaldisk)}`);
   content.push(`Ram: ${bytesToSize(usedram)} / ${bytesToSize(totalram)}`);
   content.push(`Reset in ${formatTime(resetday)}, ${getResetDaysLeft(resetday)} days left.`);
+  content.push(`Node: ${location}, IP:${location_ip}`);
 
     $done({
       title: `${args.title}`,
