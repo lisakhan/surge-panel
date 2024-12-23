@@ -7,7 +7,7 @@ $httpClient.get(url, function(error, response, data) {
   let resetday = jsonData.data_next_reset;
   let useddisk = jsonData.ve_used_disk_space_b;
   let totaldisk = jsonData.plan_disk;
-  let usedram = jsonData.plan_ram - jsonData.mem_available_kb * 1000
+  let usedram = jsonData.plan_ram - jsonData.mem_available_kb * 1024
   let totalram = jsonData.plan_ram
   let content = [`Traffic: ${bytesToSize(used)} / ${bytesToSize(total)}`];
   content.push(`Disk: ${bytesToSize(useddisk)} / ${bytesToSize(totaldisk)}`);
