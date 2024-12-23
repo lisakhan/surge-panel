@@ -40,5 +40,5 @@ VPS = type=generic,timeout=5,script-path=https://raw.githubusercontent.com/41299
 
 
 ## 4. Surge打开信息面板，点击刷新按钮查看运行效果
-![Panel](https://raw.github.com/412999826/surge-panel/refs/heads/main/CleasnShot.jpg)
+![Panel](https://raw.github.com/412999826/surge-panel/refs/heads/main/CleanShot.jpg)
 
